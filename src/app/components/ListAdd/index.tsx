@@ -1,11 +1,4 @@
-import {
-  List,
-  ListItem,
-  ListItemText,
-  ListItemButton,
-  ListItemAvatar,
-  Avatar,
-} from '@mui/material'
+import { List, ListItem, ListItemText, ListItemButton, ListItemAvatar, Avatar } from '@mui/material'
 import { IPizzaOrder } from '../../types'
 interface ListAddedProps {
   data: IPizzaOrder[]
@@ -28,10 +21,7 @@ const ListAdded = ({ data }: ListAddedProps) => {
   // }
 
   return (
-    <List
-      dense
-      sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
-    >
+    <List dense sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
       {data.map((item) => {
         const labelId = `checkbox-list-secondary-label-${item}`
         return (
@@ -55,9 +45,7 @@ const ListAdded = ({ data }: ListAddedProps) => {
                 {item.name} ({item.quantity})
               </ListItemText>
               <ListItemText id={labelId}>{item.price}</ListItemText>
-              <ListItemText id={labelId}>
-                {Math.round(item.price * item.quantity * 100) / 100}
-              </ListItemText>
+              <ListItemText id={labelId}>{Math.round(item.price * item.quantity * 100) / 100}</ListItemText>
             </ListItemButton>
           </ListItem>
         )

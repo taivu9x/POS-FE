@@ -1,7 +1,7 @@
 export enum ESize {
-  'small',
-  'medium',
-  'large',
+  'SMALL',
+  'MEDIUM',
+  'LARGE',
 }
 
 export interface IPizza {
@@ -10,6 +10,7 @@ export interface IPizza {
   price: number
   description: string
   img: string
+  size: ESize
 }
 
 export interface IPizzaOrder extends IPizza {

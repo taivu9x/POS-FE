@@ -1,7 +1,25 @@
-interface ListVoucherProps {}
+import { List, ListItem } from '@mui/material'
+import { IVoucher } from '../../types'
+import Factory from './Factory'
 
-const ListVoucher = (props: ListVoucherProps) => {
-  return <div>Hello world</div>;
-};
+interface ListVoucherProps {
+  data: IVoucher[]
+  addVoucher: (voucher: IVoucher) => void
+  voucherSelected?: IVoucher
+}
 
-export default ListVoucher;
+const ListVoucher = ({ data, addVoucher, voucherSelected }: ListVoucherProps) => {
+  return (
+    <List>
+      {data.map((item) => {
+        return (
+          <ListItem key={item.id} onClick={() => addVoucher(item)}>
+            <Factory data={item} isSelected={voucherSelected?.id === item.id}></Factory>
+          </ListItem>
+        )
+      })}
+    </List>
+  )
+}
+
+export default ListVoucher

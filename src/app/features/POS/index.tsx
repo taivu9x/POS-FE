@@ -1,55 +1,61 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import ListItem from '../../components/ListItem'
 import ListAdded from '../../components/ListAdd'
 import { IPizza, IPizzaOrder } from '../../types/pizza'
-import { listPizza } from './data'
 import { Container, styled, Grid } from '@mui/material'
+import { IVoucher } from '../../types'
+import ListVoucher from '../../components/ListVoucher'
+import { listPizza, listVoucher } from '../../mock'
+import { OrderService } from '../../services/order'
 
 const ContainerPOS = styled(Container)(() => ({
   marginTop: '50px',
 }))
 
+const orderService = new OrderService()
 const Pos = () => {
   const [data, setData] = useState<IPizza[]>([])
+  const [dataVoucher, setDataVoucher] = useState<IVoucher[]>([])
   const [dataAdded, setDataAdded] = useState<IPizzaOrder[]>([])
+  const [voucherSelected, setVoucherSelected] = useState<IVoucher | undefined>(undefined)
+  const [total, setTotal] = useState<number>(0)
   useEffect(() => {
     setData(listPizza)
+    setDataVoucher(listVoucher)
   }, [])
 
-  const handleAdd = (pizza: IPizza) => {
-    const itemFound = dataAdded.find((item) => item.id === pizza.id)
-    if (!itemFound) {
-      setDataAdded((previous) => {
-        return [...previous, { ...pizza, quantity: 1 }]
-      })
+  useEffect(() => {
+    setTotal(orderService.total())
+  }, [dataAdded, voucherSelected])
+  const handleAddPizza = (pizza: IPizza) => {
+    orderService.addItem(pizza)
+    setDataAdded(orderService.getItems())
+  }
 
-      return
-    }
-
-    setDataAdded((previous) => {
-      return previous.map((item) => {
-        if (item.id === pizza.id) {
-          return {
-            ...item,
-            quantity: item.quantity + 1,
-          }
-        }
-
-        return item
-      })
-    })
+  const handleAddVoucher = (voucher: IVoucher) => {
+    orderService.addVoucher(voucher)
+    setVoucherSelected(orderService.getVoucher())
   }
 
   return (
     <ContainerPOS>
       <Grid container spacing={5}>
         <Grid item md={8}>
-          {/* <ListVoucher data={listVoucher} onCLick={() => {}}></ListVoucher> */}
-          <ListItem listPizza={data} onClick={handleAdd} />
+          <ListItem listPizza={data} onClick={handleAddPizza} />
         </Grid>
-        <Grid item md={4}>
-          <h1>Pizza Added</h1>
-          <ListAdded data={dataAdded}></ListAdded>
+        <Grid item md={4} container>
+          <Grid item md={12}>
+            <h1>Pizza Added</h1>
+            <ListAdded data={dataAdded}></ListAdded>
+            <b>{total}</b>
+          </Grid>
+          <Grid item md={12}>
+            <ListVoucher
+              data={dataVoucher}
+              addVoucher={handleAddVoucher}
+              voucherSelected={voucherSelected}
+            ></ListVoucher>
+          </Grid>
         </Grid>
       </Grid>
     </ContainerPOS>
