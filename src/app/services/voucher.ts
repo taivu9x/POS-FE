@@ -23,10 +23,10 @@ export class VoucherEmpty extends VoucherAbstract {}
 export class VoucherDeal extends VoucherAbstract {
   total(items: IPizzaOrder[]): number {
     return items.reduce((result, item) => {
-      console.log(result, item.price, item.quantity)
       if (item.size !== this.voucher.size || !this.voucher.deal) {
         return result + item.price * item.quantity
       }
+
       const { from, to } = this.voucher.deal
       if (item.quantity < from) {
         return result + item.price * item.quantity
@@ -34,7 +34,7 @@ export class VoucherDeal extends VoucherAbstract {
 
       const numberDiscount = Math.floor(item.quantity / from)
       const numberNormal = item.quantity % from
-      console.log(result, item.price * numberDiscount * to, numberNormal)
+
       return result + item.price * (numberDiscount * to + numberNormal)
     }, 0)
   }
