@@ -7,6 +7,7 @@ import { IVoucher } from '../../types'
 import ListVoucher from '../../components/ListVoucher'
 import { listPizza, listVoucher } from '../../mock'
 import { OrderService } from '../../services/order'
+import { FETCH_PRODUCT, FETCH_VOUCHER } from '../../api'
 
 const ContainerPOS = styled(Container)(() => ({
   marginTop: '50px',
@@ -20,10 +21,22 @@ const Pos = () => {
   const [voucherSelected, setVoucherSelected] = useState<IVoucher | undefined>(undefined)
   const [total, setTotal] = useState<number>(0)
   useEffect(() => {
-    setData(listPizza)
-    setDataVoucher(listVoucher)
+    getDataVoucher()
+    getDataProduct()
   }, [])
 
+  const getDataVoucher = async () => {
+    const { data } = await FETCH_VOUCHER()
+    if (!data) {
+      return
+    }
+    setDataVoucher(data)
+  }
+
+  const getDataProduct = async () => {
+    const { data } = await FETCH_PRODUCT()
+    setData(data)
+  }
   useEffect(() => {
     setTotal(orderService.total())
   }, [dataAdded, voucherSelected])

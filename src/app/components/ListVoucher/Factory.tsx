@@ -8,6 +8,7 @@ export interface FactoryProps {
 }
 
 const Factory = (props: FactoryProps) => {
+  console.log(props.data.type, EVoucherType.DEAL)
   switch (props.data.type) {
     case EVoucherType.DEAL:
       return <Deal {...props}></Deal>

@@ -1,7 +1,7 @@
 export enum ESize {
-  'SMALL',
-  'MEDIUM',
-  'LARGE',
+  'SMALL' = 'SMALL',
+  'MEDIUM' = 'MEDIUM',
+  'LARGE' = 'LARGE',
 }
 
 export interface IPizza {

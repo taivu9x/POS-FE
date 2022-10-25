@@ -9,6 +9,7 @@ interface ListVoucherProps {
 }
 
 const ListVoucher = ({ data, addVoucher, voucherSelected }: ListVoucherProps) => {
+  console.log(data)
   return (
     <List>
       {data.map((item) => {
