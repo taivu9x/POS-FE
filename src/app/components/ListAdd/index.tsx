@@ -41,11 +41,13 @@ const ListAdded = ({ data }: ListAddedProps) => {
               <ListItemAvatar>
                 <Avatar alt={item.name} src={item.img} />
               </ListItemAvatar>
-              <ListItemText id={labelId}>
+              <ListItemText id={labelId} data-cy={`product-add-${item.id}`}>
                 {item.name} ({item.quantity})
               </ListItemText>
               <ListItemText id={labelId}>{item.price}</ListItemText>
-              <ListItemText id={labelId}>{Math.round(item.price * item.quantity * 100) / 100}</ListItemText>
+              <ListItemText id={labelId} data-cy={`product-total-${item.id}`}>
+                {Math.round(item.price * item.quantity * 100) / 100}
+              </ListItemText>
             </ListItemButton>
           </ListItem>
         )

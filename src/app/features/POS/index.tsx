@@ -5,7 +5,6 @@ import { IPizza, IPizzaOrder } from '../../types/pizza'
 import { Container, styled, Grid } from '@mui/material'
 import { IVoucher } from '../../types'
 import ListVoucher from '../../components/ListVoucher'
-import { listPizza, listVoucher } from '../../mock'
 import { OrderService } from '../../services/order'
 import { FETCH_PRODUCT, FETCH_VOUCHER } from '../../api'
 
@@ -60,7 +59,7 @@ const Pos = () => {
           <Grid item md={12}>
             <h1>Pizza Added</h1>
             <ListAdded data={dataAdded}></ListAdded>
-            <b>{total}</b>
+            <b data-cy="total">{total}</b>
           </Grid>
           <Grid item md={12}>
             <ListVoucher

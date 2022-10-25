@@ -13,9 +13,8 @@ const ListItem = ({ listPizza, onClick }: ListItemProps) => {
     setData(listPizza)
   }, [listPizza])
 
-  console.log('re-render')
   return (
-    <Grid container spacing={2}>
+    <Grid data-cy="product" container spacing={2}>
       {data.length ? (
         data.map((item) => (
           <Grid key={item.id} item md={4}>
@@ -28,7 +27,7 @@ const ListItem = ({ listPizza, onClick }: ListItemProps) => {
           </Grid>
         ))
       ) : (
-        <p>Loadding</p>
+        <p data-cy="loading-product">Loading</p>
       )}
     </Grid>
   )

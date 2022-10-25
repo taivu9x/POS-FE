@@ -9,17 +9,22 @@ interface ListVoucherProps {
 }
 
 const ListVoucher = ({ data, addVoucher, voucherSelected }: ListVoucherProps) => {
-  console.log(data)
   return (
-    <List>
-      {data.map((item) => {
-        return (
-          <ListItem key={item.id} onClick={() => addVoucher(item)}>
-            <Factory data={item} isSelected={voucherSelected?.id === item.id}></Factory>
-          </ListItem>
-        )
-      })}
-    </List>
+    <>
+      {data.length ? (
+        <List data-cy="voucher">
+          {data.map((item) => {
+            return (
+              <ListItem data-cy={`voucher-${item.id}`} key={item.id} onClick={() => addVoucher(item)}>
+                <Factory data={item} isSelected={voucherSelected?.id === item.id}></Factory>
+              </ListItem>
+            )
+          })}
+        </List>
+      ) : (
+        <p data-cy="loading-voucher">Loading</p>
+      )}
+    </>
   )
 }
 

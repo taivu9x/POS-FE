@@ -18,7 +18,7 @@ const Item = ({ data, onClick }: ItemProps) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button variant="contained" size="small" onClick={onClick}>
+        <Button variant="contained" size="small" onClick={onClick} data-cy={`product-${data.id}`}>
           Add
         </Button>
       </CardActions>
