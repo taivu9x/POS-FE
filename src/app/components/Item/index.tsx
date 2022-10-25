@@ -1,12 +1,5 @@
 import { IPizza } from '../../types'
-import {
-  Button,
-  Card,
-  CardMedia,
-  CardContent,
-  Typography,
-  CardActions,
-} from '@mui/material'
+import { Button, Card, CardMedia, CardContent, Typography, CardActions } from '@mui/material'
 interface ItemProps {
   data: IPizza
   onClick: () => void
@@ -15,12 +8,7 @@ interface ItemProps {
 const Item = ({ data, onClick }: ItemProps) => {
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardMedia
-        component="img"
-        height="140"
-        image={data.img}
-        alt="green iguana"
-      />
+      <CardMedia component="img" height="140" image={data.img} alt="green iguana" />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {data.name}
